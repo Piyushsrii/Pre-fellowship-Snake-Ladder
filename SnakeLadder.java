@@ -14,11 +14,12 @@ public class SnakeLadder
 	}
 
 
-	public static void RepeteTillPlayerReach100()
+	public static void RepeteTillPlayerReachExact100()
 	{ 
 
 		Random random = new Random();
 		int Win=0;
+                //to repeat till 100
 		while(Win < 100)
 		{
 			int RandonNo1To6=GetRandomNo1To6();
@@ -40,11 +41,13 @@ public class SnakeLadder
 			else 
 			{
 				Win=Win+RandonNo1To6;
+                                //to stop player exact in 100
 				if(Win > 100)
 				{
 					Win=Win-RandonNo1To6;
 				}
-				else {
+				else 
+                                {
 					System.out.println("congrats you have incremented by "+RandonNo1To6);
 					System.out.println("you are in "+Win);
 				}
@@ -63,7 +66,7 @@ public class SnakeLadder
 		StartFrom0();
 		System.out.println("..............");
 
-		RepeteTillPlayerReach100();
+		RepeteTillPlayerReachExact100();
 	}
 }
 
