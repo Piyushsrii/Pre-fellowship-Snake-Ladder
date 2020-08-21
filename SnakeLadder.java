@@ -1,85 +1,147 @@
 import java.util.Random;
+
 public class SnakeLadder
 {
-	public static void startFrom0()
+	static Random random = new Random();
+	static int player1Position = 0;
+	static int player2Position = 0;
+	static int p1noOfTimesDicePlayed=0;
+	static int p2noOfTimesDicePlayed=0;
+	//to display welcome message
+	public static void StartFrom0()
 	{
-		System.out.println("You are Starting from 0");
+		System.out.println("Player 1 Starting from 0");
+		System.out.println("Player 2 Starting from 0");
+		System.out.println("--------------------------");
 	}
+	//to get random number 1 to 6
 	public static int getRandomNo1To6()
 	{
-		Random random = new Random();
+
 		int randonNo1To6 = random.nextInt(6)+1;
-		//System.out.println("random number is "+RandonNo1To6);
 		return randonNo1To6;
 	}
+	//to get option 0, 1 or 2
+	public static int getOption()
+	{
+		int option = random.nextInt(3);
+		return option;
+	}
 
-
-	public static int getNoOfTimesDicePlayed_Position()
-	{ 
-
-		Random random = new Random();
-		int noOfTimesDicePlayed=0;
-		int Win = 0;
-		while(Win < 100)
+	public static void playPlayer1Player2()
+	{
+		int count = 0;
+		player1Position = 0;
+		player2Position = 0;
+		while(player1Position < 100 && player2Position < 100 )
 		{
-			int randonNo1To6 = getRandomNo1To6();
-			int randomCheck = random.nextInt(3);
-			//if player position will go below 0 then player will start from 0
 
-			//when step on snake
-			if(randomCheck == 2 && Win > randonNo1To6)
+			int randomNo1to6 = getRandomNo1To6();
+			int option=getOption();
+			if(count%2==0)//alternating playing
 			{
-
-				System.out.println("OOPS.. you step on snake you will go "+randonNo1To6+" step back");
-				Win = Win-randonNo1To6;
-				System.out.println("You are in position "+Win);
-				System.out.println();
-				noOfTimesDicePlayed++;
-			}
-			// no move 
-			else if(randomCheck == 0)
-			{
-				System.out.println("You made a FOUL you scored 0 so you will be in same position");
-				System.out.println("You are in position "+Win);
-				System.out.println();
-				noOfTimesDicePlayed++;
-
-			}
-
-			else 
-			{
-				Win = Win+randonNo1To6;
-				//if win exceed 100
-				if(Win > 100)
+				count++;
+				p1noOfTimesDicePlayed++;
+				if(option == 0)
 				{
-					Win = Win-randonNo1To6;
-					noOfTimesDicePlayed++;
-				}
-				else {
-					System.out.println("You have scored "+randonNo1To6);
-					System.out.println("CONGRATS... you have incremented by "+randonNo1To6);
-					System.out.println("You are in position "+Win);
+					System.out.println("player1 scored "+randomNo1to6);
+					System.out.println("player1 option is 0 he will stay in same position");
+					System.out.println("player1 is in position "+player1Position);
 					System.out.println();
-					noOfTimesDicePlayed++;
 				}
-			}
-			if(Win == 100)
-			{
-				System.out.println("CONGRATS YOU HAVE WON THE GAME");
-				System.out.println();
+
+				else if(option == 1 && player1Position > randomNo1to6)//should not go to negative
+				{ 
+					System.out.println("player1 scored "+randomNo1to6);
+					System.out.println("player1 step on snake  he will go back by "+randomNo1to6);
+					player1Position = player1Position-randomNo1to6;
+					System.out.println("player1 is in position "+player1Position);
+					System.out.println();
+				}
+
+				else
+				{
+					player1Position = player1Position+randomNo1to6;
+					if(player1Position > 100)//should not go above 100
+					{
+						player1Position = player1Position-randomNo1to6;
+						System.out.println("player1 scored "+randomNo1to6);
+						System.out.println("player 1 has missed his turn he need "+(100-player1Position)+" to win");
+						System.out.println();
+					}
+					else
+					{
+						System.out.println("player1 scored "+randomNo1to6);
+						System.out.println("player1 is incremented by "+randomNo1to6);
+						System.out.println("p1 are in position "+player1Position);
+						System.out.println();
+					}
+				}
+
+				if(player1Position == 100)
+				{
+					System.out.println("CONGRATS... player 1 has won the game");
+					System.out.println("total no of time dice played by him is "+p1noOfTimesDicePlayed);
+				}
 
 			}
+
+			else
+			{
+				count++;
+				p2noOfTimesDicePlayed++;
+				if(option == 0)
+				{
+					System.out.println("player2 scored "+randomNo1to6);
+					System.out.println("player2 option is 0 he will stay in same position");
+					System.out.println("player2 is in position "+player2Position);
+					System.out.println();
+				}
+
+				else if(option == 1 && player2Position > randomNo1to6)
+				{
+					System.out.println("player2 scored "+randomNo1to6);
+					System.out.println("player2 step on snake he will go back by "+randomNo1to6);
+					player2Position = player2Position-randomNo1to6;
+					System.out.println("player2 is in position "+player2Position);
+					System.out.println();
+				}
+
+				else
+				{   
+					player2Position = player2Position+randomNo1to6;
+					if(player2Position > 100)
+					{
+						player2Position = player2Position-randomNo1to6;
+						System.out.println("player2 scored "+randomNo1to6);
+						System.out.println("player 2 has missed his turn he need "+(100-player2Position)+" to win");
+						System.out.println();
+					}
+					else
+					{
+						System.out.println("player2 scored "+randomNo1to6);
+						System.out.println("player2 are incremented by "+randomNo1to6);
+						System.out.println("player2 is in position "+player2Position);
+						System.out.println();
+					}
+				}
+				if(player2Position == 100)
+				{
+					System.out.println("CONGRATS... player 2 has won the game");
+					System.out.println("total no of time dice played by him is "+p2noOfTimesDicePlayed);
+				}
+			}
+
+
 		}
-		return noOfTimesDicePlayed;
+
 
 	}
+
 	public static void main(String[] args)
 	{
-		startFrom0();
-		System.out.println("..............");
-		System.out.println("Total times dice played by you is "+getNoOfTimesDicePlayed_Position());
-		System.out.println();
-		System.out.println("Thankyou for playing game...");
+		StartFrom0();
+		playPlayer1Player2();	
 	}
 }
 
